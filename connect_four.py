@@ -5,14 +5,29 @@ class ConnectFour:
         self.board = [[' ' for _ in range(self.cols)] for _ in range(self.rows)]
         self.current_player = 'X'
 
+    """Prints the current state of the board to the console.
+    
+    Iterates through each row of the board and joins the characters with '|' to print each row on its own line.
+    Prints a separator of '-' characters below the board.
+    """
     def print_board(self):
         for row in self.board:
             print('|'.join(row))
         print('-' * (self.cols * 2 - 1))
 
+    """Checks if the given column is a valid move.
+    
+    Returns True if the top row of the given column is empty, False otherwise.
+    """
     def is_valid_move(self, col):
         return self.board[0][col] == ' '
 
+    """Drops a piece for the current player into the given column.
+    
+    Iterates through the rows from bottom to top, dropping the piece into 
+    the first empty cell. Returns True if the move was made, False if the 
+    column was full.
+    """
     def make_move(self, col):
         for i in range(self.rows - 1, -1, -1):
             if self.board[i][col] == ' ':
@@ -20,6 +35,13 @@ class ConnectFour:
                 return True
         return False
 
+    """Checks if there is a winner by checking for 4 in a row horizontally, 
+    vertically, or diagonally.
+    
+    Iterates through each row, column, and both diagonals, checking if four 
+    adjacent cells contain the same value other than ' '. Returns True if a 
+    winner is found, False otherwise.
+    """
     def check_winner(self):
         # Check horizontally
         for i in range(self.rows):
